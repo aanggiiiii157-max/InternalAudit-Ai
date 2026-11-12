@@ -78,29 +78,34 @@ h1, h2, h3 {
 """, unsafe_allow_html=True)
 
 # ==========================================
-# 3. KONEKSI GROK AI
+# 3. KONEKSI GROQ AI
 # ==========================================
 
-def get_grok_response(prompt):
-
+def get_ai_response(prompt):
     try:
-        api_key = st.secrets["XAI_API_KEY"]
-
-        client = OpenAI(
-            api_key=api_key,
-            base_url="https://api.x.ai/v1"
+        response = client.chat.completions.create(
+            model="llama-3.3-70b-versatile",
+            messages=[
+                {
+                    "role": "system",
+                    "content": (
+                        "Kamu adalah AI Agent Audit Internal "
+                        "yang membantu auditor melakukan "
+                        "pemeriksaan dan analisis."
+                    )
+                },
+                {
+                    "role": "user",
+                    "content": prompt
+                }
+            ],
+            temperature=0.2
         )
 
-        response = client.responses.create(
-            model="grok-4.7",
-            input=prompt
-        )
-
-        return response.output_text
+        return response.choices[0].message.content
 
     except Exception as e:
-        return f"Terjadi kesalahan API: {str(e)}"
-
+        return f"Terjadi kesalahan API Groq: {str(e)}"
 
 # ==========================================
 # 4. FUNGSI MEMBACA FILE
