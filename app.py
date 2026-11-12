@@ -502,7 +502,7 @@ elif menu == "Audit Pengendalian Internal":
 
         with st.spinner("Grok AI mengevaluasi checklist..."):
 
-            result = get_grok_response(prompt)
+         result = get_grok_response(prompt)
 
             st.session_state.latest_report = result
 
