@@ -1,6 +1,6 @@
 streamlit
 pandas
 openpyxl
-openai
+groq
 pypdf
 python-docx
